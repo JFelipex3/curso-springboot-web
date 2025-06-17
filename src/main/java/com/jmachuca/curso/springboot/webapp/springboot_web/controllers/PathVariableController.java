@@ -1,5 +1,8 @@
 package com.jmachuca.curso.springboot.webapp.springboot_web.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import com.jmachuca.curso.springboot.webapp.springboot_web.models.dto.ParamDto;
 @RequestMapping("/api/var")
 public class PathVariableController {
     
+    // http://localhost:8080/api/var/baz/mesa
     @GetMapping("/baz/{message}")
     public ParamDto baz(@PathVariable String message) {
 
@@ -19,6 +23,17 @@ public class PathVariableController {
         param.setMessage(message);
 
         return param;
+    }
+
+    // http://localhost:8080/api/var/baz/mesa
+    @GetMapping("/mix/{product}/{id}")
+    public Map<String, Object> mixPathVar(@PathVariable String product, @PathVariable Long id) {
+
+        Map<String, Object> json = new HashMap<>();
+        json.put("product", product);
+        json.put("id", id);
+
+        return json;
     }
 
 }
