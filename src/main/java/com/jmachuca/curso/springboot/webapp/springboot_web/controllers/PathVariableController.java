@@ -25,7 +25,7 @@ public class PathVariableController {
         return param;
     }
 
-    // http://localhost:8080/api/var/baz/mesa
+    // http://localhost:8080/api/var/mix/teclado/1213
     @GetMapping("/mix/{product}/{id}")
     public Map<String, Object> mixPathVar(@PathVariable String product, @PathVariable Long id) {
 
