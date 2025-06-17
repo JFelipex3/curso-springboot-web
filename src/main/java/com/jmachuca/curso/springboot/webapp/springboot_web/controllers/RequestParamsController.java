@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jmachuca.curso.springboot.webapp.springboot_web.models.dto.ParamDto;
+import com.jmachuca.curso.springboot.webapp.springboot_web.models.dto.ParamMixDto;
 
 @RestController
 @RequestMapping("/api/params")
@@ -32,4 +33,17 @@ public class RequestParamsController {
         
         return param;
     }
+
+    // http://localhost:8080/api/params/bar?text=Tequila&code=14
+    @GetMapping("/bar")
+    public ParamMixDto bar(@RequestParam String text, @RequestParam Integer code) {
+
+        ParamMixDto params = new ParamMixDto();
+
+        params.setMessage(text);
+        params.setCode(code);
+
+        return params;
+    }
+
 }
