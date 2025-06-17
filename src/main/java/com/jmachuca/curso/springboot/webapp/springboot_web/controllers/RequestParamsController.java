@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jmachuca.curso.springboot.webapp.springboot_web.models.dto.ParamDto;
 import com.jmachuca.curso.springboot.webapp.springboot_web.models.dto.ParamMixDto;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api/params")
 public class RequestParamsController {
@@ -42,6 +44,26 @@ public class RequestParamsController {
 
         params.setMessage(text);
         params.setCode(code);
+
+        return params;
+    }
+
+    //http://localhost:8080/api/params/request?code=14&message=Alg%C3%BAn%20mensaje
+    @GetMapping("/request")
+    public ParamMixDto request(HttpServletRequest request) {
+
+        ParamMixDto params = new ParamMixDto();
+
+        Integer code = 0;
+        
+        try {
+            code = Integer.parseInt(request.getParameter("code"));    
+        } catch (NumberFormatException e) {
+            System.out.println("Error al convertir el código: " + e.getMessage());
+        }
+
+        params.setCode(code);
+        params.setMessage(request.getParameter("message"));
 
         return params;
     }
