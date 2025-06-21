@@ -1,6 +1,7 @@
 package com.jmachuca.curso.springboot.webapp.springboot_web.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +29,7 @@ public class PathVariableController {
     private String message;
 
     @Value("${config.listOfValues}")
-    private String[] listOfValues;
+    private List<String> listOfValues; // Se puede utilizar List en vez de Array 
     
     // http://localhost:8080/api/var/baz/mesa
     @GetMapping("/baz/{message}")
