@@ -34,6 +34,9 @@ public class PathVariableController {
     @Value("#{ '${config.listOfValues}'.split(',') }") // Utilizar lenguaje de expresión para manipular la cadena
     private List<String> valueList; // Otra forma de inyectar una lista desde properties
     
+    @Value("#{ '${config.listOfValues}' }")
+    private String valueString;
+
     // http://localhost:8080/api/var/baz/mesa
     @GetMapping("/baz/{message}")
     public ParamDto baz(@PathVariable String message) {
@@ -95,6 +98,7 @@ public class PathVariableController {
         json.put("listOfValues", listOfValues);
         json.put("title", title);
         json.put("valueList", valueList);
+        json.put("valueString", valueString);
 
         return json;
     }
