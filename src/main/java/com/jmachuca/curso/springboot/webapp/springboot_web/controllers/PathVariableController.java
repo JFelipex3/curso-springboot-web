@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,6 +47,9 @@ public class PathVariableController {
 
     @Value("#{${config.valuesMap}.price}")
     private Long price;
+
+    @Autowired
+    private Environment environment;
 
     // http://localhost:8080/api/var/baz/mesa
     @GetMapping("/baz/{message}")
@@ -122,6 +127,20 @@ public class PathVariableController {
         json.put("valuesMap", valuesMap);
         json.put("product", product);
         json.put("price", price);
+
+        return json;
+    }
+
+    @GetMapping("/valuesInjectEnv")
+    public Map<String, Object> getValuesInjectEnv(@Value("${config.title}") String title) {
+        // Utilizar enviroment convierte los valores de properties a strings
+
+        Map<String, Object> json = new HashMap<>();
+        json.put("message", environment.getProperty("config.message"));
+        json.put("code", environment.getProperty("config.code", Long.class));
+        json.put("username", environment.getProperty("config.username"));
+        json.put("title", environment.getProperty("config.title"));
+        json.put("listOfValues", environment.getProperty("config.listOfValues"));
 
         return json;
     }
